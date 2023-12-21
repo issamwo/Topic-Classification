@@ -13,7 +13,7 @@ class DataIngestionConfig:
 
 
 @dataclass(frozen=True)
-class DataPreprocessingConfig:
+class DataCleaningConfig:
     root_dir: Path
     unpreprocessed_data_path: Path
     column_text: str

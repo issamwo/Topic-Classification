@@ -8,9 +8,9 @@ data_ingestion:
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
 
-data_preprocessing:
-  root_dir: artifacts/data_preprocessing
+data_cleaning:
+  root_dir: artifacts/data_cleaning
   unpreprocessed_data_path: artifacts/data_ingestion
   column_text: text
   column_topic: Topic
-  preprocessed_data_path: artifacts/data_preprocessing
+  preprocessed_data_path: artifacts/data_cleaning

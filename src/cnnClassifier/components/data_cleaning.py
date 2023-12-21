@@ -5,19 +5,18 @@ import numpy as np
 import string
 import json
 from cnnClassifier import logger
-from cnnClassifier.utils.common import get_size
-from cnnClassifier.entity.config_entity import DataPreprocessingConfig
+from cnnClassifier.entity.config_entity import DataCleaningConfig
 
 
-class DataPreprocessing:
-    def __init__(self, config: DataPreprocessingConfig): 
+class DataCleaning:
+    def __init__(self, config: DataCleaningConfig): 
         self.config = config
     
     def detect_last_file(self) -> str:
         """
         get last unzip files from the ingestion pipeline
         """
-        logger.info("Looking for all JSON files to Select latest one created")
+        logger.info("Looking for all JSON files to Select latest one download/created")
         directory = self.config.unpreprocessed_data_path
         json_files = [f for f in os.listdir(directory) if f.endswith('.json')]
         max_element = None
@@ -35,16 +34,17 @@ class DataPreprocessing:
         """
         read and subset the data
         """
+        
+        logger.info("Read unprocessed file")
         column_text = self.config.column_text
         column_topic = self.config.column_topic
-        logger.info("Read unprocessed file")
         # Load the JSON file as a string
         with open(file_path) as f:
             data = json.load(f)
         # Normalize the JSON data and create a DataFrame
         df = pd.json_normalize(data)
         # Subset of data
-        df = df.loc[:, ['text', 'Topic']]
+        df = df.loc[:, [column_text, column_topic]]
         logger.info("File read is completed")
         return df
         
@@ -63,7 +63,7 @@ class DataPreprocessing:
         column_text = self.config.column_text
         preprocessed_data_path = self.config.preprocessed_data_path
 
-        os.makedirs("artifacts/data_preprocessing", exist_ok=True)
+        os.makedirs("artifacts/data_cleaning", exist_ok=True)
 
 
         # Assign nan in place of blanks in the complaints column
@@ -82,11 +82,10 @@ class DataPreprocessing:
         df[column_text] = pd.DataFrame(df[column_text].apply(lambda x: re.sub(r'\w*\d\w*', '', x)))
         
         try:
-            logger.info(f"downloading cleaned data into file {preprocessed_data_path}")
+            logger.info(f"Started the downloading of cleaned data into file {preprocessed_data_path}")
             json_data = df.to_json(orient='records')
             with open(os.path.join(preprocessed_data_path,'cleaned_data.json'), 'w') as f:
                 f.write(json_data)
-            logger.info(f"downloaded cleaned data into file {preprocessed_data_path}")
+            logger.info(f"downloaded  cleaned data into file {preprocessed_data_path} Completed")
         except Exception as e:
             raise e
-        

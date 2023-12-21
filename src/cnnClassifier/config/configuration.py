@@ -1,6 +1,6 @@
 from cnnClassifier.constants import *
 from cnnClassifier.utils.common import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig, DataPreprocessingConfig
+from cnnClassifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig
 
 class ConfigurationManager:
     def __init__(
@@ -30,12 +30,12 @@ class ConfigurationManager:
 
         return data_ingestion_config
     
-    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
-        config = self.config.data_preprocessing
+    def get_data_cleaning_config(self) -> DataCleaningConfig:
+        config = self.config.data_cleaning
         
         create_directories([config.root_dir])
 
-        data_preprocessing_config = DataPreprocessingConfig(
+        data_cleaning_config = DataCleaningConfig(
             root_dir=Path(config.root_dir),
             unpreprocessed_data_path=Path(config.unpreprocessed_data_path),
             column_text=config.column_text,
@@ -43,4 +43,4 @@ class ConfigurationManager:
             preprocessed_data_path=Path(config.preprocessed_data_path)
         )
 
-        return data_preprocessing_config
+        return data_cleaning_config

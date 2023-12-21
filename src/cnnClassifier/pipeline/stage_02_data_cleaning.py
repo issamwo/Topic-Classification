@@ -1,24 +1,24 @@
 from cnnClassifier.config.configuration import ConfigurationManager
-from cnnClassifier.components.data_preprocessing import DataPreprocessing
+from cnnClassifier.components.data_cleaning import DataCleaning
 from cnnClassifier import logger
 
-STAGE_NAME = "Data Preprocessing Stage"
+STAGE_NAME = "Data Cleaning Stage"
 
-class DataPreprocessingTrainingPipeline:
+class DataCleaningTrainingPipeline:
     def __init__(self) -> None:
         pass
     
     def main(self):
         config = ConfigurationManager()
-        data_preprocessing_config = config.get_data_preprocessing_config()
-        data_preprocessing = DataPreprocessing(config=data_preprocessing_config)
-        data_preprocessing.clean_data(data_preprocessing.read_data(data_preprocessing.detect_last_file()))
+        data_cleaning_config = config.get_data_cleaning_config()
+        data_cleaning = DataCleaning(config=data_cleaning_config)
+        data_cleaning.clean_data(data_cleaning.read_data(data_cleaning.detect_last_file()))
 
 
 if __name__ == '__main__':
     try:
         logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        obj = DataPreprocessingTrainingPipeline()
+        obj = DataCleaningTrainingPipeline()
         obj.main()
         logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
