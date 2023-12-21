@@ -9,3 +9,13 @@ class DataIngestionConfig:
     source_blob_name: str
     local_data_file: Path
     unzip_dir: Path
+
+
+
+@dataclass(frozen=True)
+class DataPreprocessingConfig:
+    root_dir: Path
+    unpreprocessed_data_path: Path
+    column_text: str
+    column_topic: str
+    preprocessed_data_path: Path
