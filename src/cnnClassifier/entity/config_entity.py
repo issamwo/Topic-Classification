@@ -18,4 +18,15 @@ class DataCleaningConfig:
     unpreprocessed_data_path: Path
     column_text: str
     column_topic: str
-    preprocessed_data_path: Path
+    cleaned_data_path: Path
+
+
+
+@dataclass(frozen=True)
+class DataPreprocessingConfig:
+    root_dir: Path
+    cleaned_data_path: Path
+    preprocessed_spilitted_data_path: Path
+    max_words: float
+    topic_names: dict
+    test_size: float

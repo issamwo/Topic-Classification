@@ -61,7 +61,7 @@ class DataCleaning:
         :return: cleaned text
         '''
         column_text = self.config.column_text
-        preprocessed_data_path = self.config.preprocessed_data_path
+        cleaned_data_path = self.config.cleaned_data_path
 
         os.makedirs("artifacts/data_cleaning", exist_ok=True)
 
@@ -82,10 +82,10 @@ class DataCleaning:
         df[column_text] = pd.DataFrame(df[column_text].apply(lambda x: re.sub(r'\w*\d\w*', '', x)))
         
         try:
-            logger.info(f"Started the downloading of cleaned data into file {preprocessed_data_path}")
+            logger.info(f"Started the downloading of cleaned data into file {cleaned_data_path}")
             json_data = df.to_json(orient='records')
-            with open(os.path.join(preprocessed_data_path,'cleaned_data.json'), 'w') as f:
+            with open(os.path.join(cleaned_data_path,'cleaned_data.json'), 'w') as f:
                 f.write(json_data)
-            logger.info(f"downloaded  cleaned data into file {preprocessed_data_path} Completed")
+            logger.info(f"downloaded  cleaned data into file {cleaned_data_path} Completed")
         except Exception as e:
             raise e

@@ -13,4 +13,9 @@ data_cleaning:
   unpreprocessed_data_path: artifacts/data_ingestion
   column_text: text
   column_topic: Topic
-  preprocessed_data_path: artifacts/data_cleaning
+  cleaned_data_path: artifacts/data_cleaning
+
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+  cleaned_data_path: artifacts/data_cleaning
+  preprocessed_spilitted_data_path: artifacts/data_preprocessing

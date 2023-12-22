@@ -1,6 +1,13 @@
+MAX_WORDS: 1000
+TEST_SIZE: 0.25
 BATCH_SIZE: 32
 EPOCHS: 5
 LEARNING_RATE: 0.01
 BETA_1: 0.9
 BETA_2: 0.999
 # CLASSES: 5
+TOPIC_NAMES: {"Bank Account services":0,
+               "Credit card or prepaid card":1,
+               "Others":2,
+               "Theft/Dispute Reporting":3,
+               "Mortgage/Loan":4}

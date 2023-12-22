@@ -1,6 +1,6 @@
 from cnnClassifier.constants import *
 from cnnClassifier.utils.common import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig
+from cnnClassifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig, DataPreprocessingConfig
 
 class ConfigurationManager:
     def __init__(
@@ -14,7 +14,6 @@ class ConfigurationManager:
         create_directories([self.config.artifacts_root])
 
 
-    
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
 
@@ -30,6 +29,7 @@ class ConfigurationManager:
 
         return data_ingestion_config
     
+    
     def get_data_cleaning_config(self) -> DataCleaningConfig:
         config = self.config.data_cleaning
         
@@ -44,3 +44,20 @@ class ConfigurationManager:
         )
 
         return data_cleaning_config
+    
+    
+    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
+        config = self.config.data_preprocessing
+        
+        create_directories([config.root_dir])
+
+        data_preprocessing_config = DataPreprocessingConfig(
+            root_dir=Path(config.root_dir),
+            cleaned_data_path=Path(config.cleaned_data_path),
+            preprocessed_spilitted_data_path=Path(config.preprocessed_spilitted_data_path),
+            max_words=self.params.MAX_WORDS,
+            test_size=self.params.TEST_SIZE,
+            topic_names=self.params.TOPIC_NAMES
+        )
+
+        return data_preprocessing_config

@@ -9,6 +9,7 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
+import pickle
 
 
 
@@ -135,4 +136,27 @@ def decodeImage(imgstring, fileName):
 def encodeImageIntoBase64(croppedImagePath):
     with open(croppedImagePath, "rb") as f:
         return base64.b64encode(f.read())
+    
 
+def write_to_pickle(tfidf_vector, filename, output_path: Path):
+    """store tfidf vector in pickle format
+
+    Args:
+        tfidf_vector (_type_): _description_
+        filename (_type_): _description_
+    """
+    with open(os.path.join(output_path, filename), 'wb') as f:
+        pickle.dump(tfidf_vector, f)
+
+
+def load_from_pickle(filename):
+    """read tfidf vector in pickle format
+
+    Args:
+        filename (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    with open(filename, 'rb') as f:
+        return pickle.load(f)
