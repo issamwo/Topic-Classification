@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import json
+import numpy as np
 from cnnClassifier import logger
 from tensorflow import keras
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -91,6 +92,13 @@ class DataPreprocessing:
         self.vector_classes_info_to_json(y_train,'metadata_info_train',self.config.preprocessed_spilitted_data_path)
         self.vector_classes_info_to_json(y_test,'metadata_info_test',self.config.preprocessed_spilitted_data_path)
         
+        # vector class to binary class matrix 
+        num_classes = np.max(y_train) + 1
+
+        y_train = keras.utils.to_categorical(y_train, num_classes)
+        y_test = keras.utils.to_categorical(y_test, num_classes)
+        
+        # Tokenizer init:
         tokenizer = Tokenizer(num_words=self.config.max_words)
         tokenizer.fit_on_texts(X_train)
 

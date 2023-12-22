@@ -5,6 +5,7 @@ EPOCHS: 5
 LEARNING_RATE: 0.01
 BETA_1: 0.9
 BETA_2: 0.999
+VALIDATION_SPLIT: 0.1
 # CLASSES: 5
 TOPIC_NAMES: {"Bank Account services":0,
                "Credit card or prepaid card":1,

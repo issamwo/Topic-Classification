@@ -19,3 +19,8 @@ data_preprocessing:
   root_dir: artifacts/data_preprocessing
   cleaned_data_path: artifacts/data_cleaning
   preprocessed_spilitted_data_path: artifacts/data_preprocessing
+
+model_training:
+  root_dir: artifacts/model_training
+  preprocessed_spilitted_data_path: artifacts/data_preprocessing
+  model_path: artifacts/model_training
