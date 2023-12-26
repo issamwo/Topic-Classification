@@ -9,9 +9,9 @@ from sklearn.model_selection import train_test_split
 from collections import Counter
 import pickle
 
-from cnnClassifier.entity.config_entity import DataPreprocessingConfig
-from cnnClassifier.constants import *
-from cnnClassifier.utils.common import read_yaml, create_directories, write_to_pickle
+from Classifier.entity.config_entity import DataPreprocessingConfig
+from Classifier.constants import *
+from Classifier.utils.common import read_yaml, create_directories, write_to_pickle
 
 class DataPreprocessing:
     def __init__(self, config: DataPreprocessingConfig): 

@@ -1,6 +1,6 @@
-from cnnClassifier.config.configuration import ConfigurationManager
-from cnnClassifier.components.data_preprocessing import DataPreprocessing
-from cnnClassifier import logger
+from Classifier.config.configuration import ConfigurationManager
+from Classifier.components.data_preprocessing import DataPreprocessing
+from Classifier import logger
 
 STAGE_NAME = "Data Preprocessing Stage"
 

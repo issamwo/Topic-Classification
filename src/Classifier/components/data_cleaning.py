@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 import string
 import json
-from cnnClassifier import logger
-from cnnClassifier.entity.config_entity import DataCleaningConfig
+from Classifier import logger
+from Classifier.entity.config_entity import DataCleaningConfig
 
 
 class DataCleaning:

@@ -1,6 +1,6 @@
-from cnnClassifier.constants import *
-from cnnClassifier.utils.common import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig,\
+from Classifier.constants import *
+from Classifier.utils.common import read_yaml, create_directories
+from Classifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig,\
       DataPreprocessingConfig, ModelTrainingConfig
 
 class ConfigurationManager:

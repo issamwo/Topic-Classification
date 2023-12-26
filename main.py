@@ -1,6 +1,6 @@
-from cnnClassifier import logger
-from cnnClassifier.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-from cnnClassifier.pipeline.stage_02_data_cleaning import DataCleaningTrainingPipeline
+from Classifier import logger
+from Classifier.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
+from Classifier.pipeline.stage_02_data_cleaning import DataCleaningTrainingPipeline
 
 
 
