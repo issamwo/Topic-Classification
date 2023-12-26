@@ -38,8 +38,6 @@ class ModelTraining:
 
         x_train = data['X_train_preprocessed.pickle']
         y_train = data['y_train_preprocessed.pickle']
-        x_test = data['X_test_preprocessed.pickle']
-        y_test = data['y_test_preprocessed.pickle']
 
         num_classes = y_train.shape[1]
 
