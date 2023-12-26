@@ -83,12 +83,14 @@ class DataPreprocessing:
         Args:
             df (pd.DataFrame): _description_
         """
+        logger.info("Select and split data")
         df['Topic'] = df['Topic'].map(self.config.topic_names)
 
         X_train, X_test, y_train, y_test = train_test_split(
             df.text, df.Topic, test_size=0.25, random_state=42
             )
         
+        logger.info("write metadata of training and test data")
         self.vector_classes_info_to_json(y_train,'metadata_info_train',self.config.preprocessed_spilitted_data_path)
         self.vector_classes_info_to_json(y_test,'metadata_info_test',self.config.preprocessed_spilitted_data_path)
         
@@ -98,6 +100,7 @@ class DataPreprocessing:
         y_train = keras.utils.to_categorical(y_train, num_classes)
         y_test = keras.utils.to_categorical(y_test, num_classes)
         
+        logger.info("initialize and save tokenizer")
         # Tokenizer init:
         tokenizer = Tokenizer(num_words=self.config.max_words)
         tokenizer.fit_on_texts(X_train)
@@ -113,12 +116,12 @@ class DataPreprocessing:
         x_train_tfidf = tokenizer.sequences_to_matrix(X_train_sequences, mode="tfidf")
         X_test_tfidf = tokenizer.sequences_to_matrix(X_test_sequences, mode="tfidf")
 
+        logger.info("save preprocessed data/matrix as pickles")
         # how to store this data : pickle
-        write_to_pickle(x_train_tfidf, 'X_train_preprocessed',self.config.preprocessed_spilitted_data_path)
-        write_to_pickle(X_test_tfidf, 'X_test_preprocessed', self.config.preprocessed_spilitted_data_path)
-
-        write_to_pickle(y_train, 'y_train_preprocessed', self.config.preprocessed_spilitted_data_path)
-        write_to_pickle(y_test, 'y_test_preprocessed', self.config.preprocessed_spilitted_data_path)
+        write_to_pickle(x_train_tfidf, 'X_train_preprocessed.pickle',self.config.preprocessed_spilitted_data_path)
+        write_to_pickle(X_test_tfidf, 'X_test_preprocessed.pickle', self.config.preprocessed_spilitted_data_path)
+        write_to_pickle(y_train, 'y_train_preprocessed.pickle', self.config.preprocessed_spilitted_data_path)
+        write_to_pickle(y_test, 'y_test_preprocessed.pickle', self.config.preprocessed_spilitted_data_path)
         
 
         

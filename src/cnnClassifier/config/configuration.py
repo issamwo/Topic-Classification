@@ -1,6 +1,7 @@
 from cnnClassifier.constants import *
 from cnnClassifier.utils.common import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig, DataPreprocessingConfig
+from cnnClassifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig,\
+      DataPreprocessingConfig, ModelTrainingConfig
 
 class ConfigurationManager:
     def __init__(
@@ -61,3 +62,24 @@ class ConfigurationManager:
         )
 
         return data_preprocessing_config
+    
+
+    def get_model_training_config(self) -> ModelTrainingConfig:
+        config = self.config.model_training
+        
+        create_directories([config.root_dir])
+
+        model_training_config = ModelTrainingConfig(
+            root_dir=Path(config.root_dir),
+            preprocessed_spilitted_data_path=Path(config.preprocessed_spilitted_data_path),
+            model_path=Path(config.model_path),
+            batch_size=self.params.BATCH_SIZE,
+            epochs=self.params.EPOCHS,
+            max_words=self.params.MAX_WORDS,
+            validation_split=self.params.VALIDATION_SPLIT,
+            learning_rate=self.params.LEARNING_RATE,
+            beta_1=self.params.BETA_1,
+            beta_2=self.params.BETA_2
+        )
+
+        return model_training_config

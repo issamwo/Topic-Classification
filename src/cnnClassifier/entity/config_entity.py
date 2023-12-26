@@ -30,3 +30,17 @@ class DataPreprocessingConfig:
     max_words: float
     topic_names: dict
     test_size: float
+
+
+@dataclass(frozen=True)
+class ModelTrainingConfig:
+    root_dir: Path
+    preprocessed_spilitted_data_path: Path
+    model_path: Path
+    batch_size: int
+    epochs: int
+    max_words: int
+    validation_split: float
+    learning_rate: float
+    beta_1: float
+    beta_2: float
