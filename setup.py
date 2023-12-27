@@ -8,8 +8,8 @@ __version__ = "0.0.0"
 
 REPO_NAME = "Mlops_project"
 AUTHOR_USER_NAME = "issamwo"
-SRC_REPO = "cnnClassifier"
-AUTHOR_EMAIL = "entbappy73@gmail.com"
+SRC_REPO = "Classifier"
+AUTHOR_EMAIL = ""
 
 
 setuptools.setup(
@@ -17,7 +17,7 @@ setuptools.setup(
     version=__version__,
     author=AUTHOR_USER_NAME,
     author_email=AUTHOR_EMAIL,
-    description="A small python package for CNN app",
+    description="A small python package for MLP classification app",
     long_description=long_description,
     long_description_content="text/markdown",
     url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",
