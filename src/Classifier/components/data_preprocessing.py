@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import json
 import numpy as np
-from cnnClassifier import logger
+from Classifier import logger
 from tensorflow import keras
 from tensorflow.keras.preprocessing.text import Tokenizer
 from sklearn.model_selection import train_test_split

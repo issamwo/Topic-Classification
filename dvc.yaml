@@ -1,0 +1,72 @@
+stages:
+  data_ingestion:
+    cmd: python src/Classifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/Classifier/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/data.json
+      - artifacts/data_ingestion/data.zip
+
+
+  data_cleaning:
+    cmd: python src/Classifier/pipeline/stage_02_data_cleaning.py
+    deps:
+      - src/Classifier/pipeline/stage_02_data_cleaning.py
+      - config/config.yaml
+      - artifacts/data_ingestion/data.json
+    outs:
+      - artifacts/data_cleaning/cleaned_data.json
+
+
+  data_preprocessing:
+    cmd: python src/Classifier/pipeline/stage_03_data_preprocessing.py
+    deps:
+      - src/Classifier/pipeline/stage_03_data_preprocessing.py
+      - config/config.yaml
+      - artifacts/data_cleaning/cleaned_data.json
+    params:
+      - MAX_WORDS
+      - TEST_SIZE
+    outs:
+      - artifacts/data_preprocessing/metadata_info_test.json
+      - artifacts/data_preprocessing/metadata_info_train.json
+      - artifacts/data_preprocessing/X_test_preprocessed.pickle
+      - artifacts/data_preprocessing/X_train_preprocessed.pickle
+      - artifacts/data_preprocessing/y_test_preprocessed.pickle
+      - artifacts/data_preprocessing/y_train_preprocessed.pickle
+      - artifacts/data_preprocessing/tokenizer.pickle
+
+
+  model_training:
+    cmd: python src/Classifier/pipeline/stage_04_model_training.py
+    deps:
+      - src/Classifier/pipeline/stage_04_model_training.py
+      - config/config.yaml
+      - artifacts/data_preprocessing/X_train_preprocessed.pickle
+      - artifacts/data_preprocessing/y_train_preprocessed.pickle
+    params:
+      - BATCH_SIZE
+      - EPOCHS
+      - MAX_WORDS
+      - VALIDATION_SPLIT
+      - LEARNING_RATE
+      - BETA_1
+      - BETA_2
+    outs:
+      - artifacts/model_training/model.h5
+  
+
+  model_evaluation:
+    cmd: python src/Classifier/pipeline/stage_05_model_evaluation.py
+    deps:
+      - src/Classifier/pipeline/stage_05_model_evaluation.py
+      - config/config.yaml
+      - artifacts/model_training/model.h5
+      - artifacts/data_preprocessing/X_test_preprocessed.pickle
+      - artifacts/data_preprocessing/y_test_preprocessed.pickle
+    params:
+      - BATCH_SIZE
+    metrics:
+    - artifacts/model_evaluation/evaluation.json:
+        cache: false

@@ -50,7 +50,7 @@ class ConfigurationManager:
             unpreprocessed_data_path=Path(config.unpreprocessed_data_path),
             column_text=config.column_text,
             column_topic=config.column_topic,
-            preprocessed_data_path=Path(config.preprocessed_data_path)
+            cleaned_data_path=Path(config.cleaned_data_path)
         )
 
         return data_cleaning_config
