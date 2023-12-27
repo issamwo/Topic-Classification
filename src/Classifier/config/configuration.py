@@ -1,7 +1,16 @@
 from Classifier.constants import *
 from Classifier.utils.common import read_yaml, create_directories
 from Classifier.entity.config_entity import DataIngestionConfig, DataCleaningConfig,\
-      DataPreprocessingConfig, ModelTrainingConfig
+      DataPreprocessingConfig, ModelTrainingConfig, ModelEvaluationConfig
+
+import os
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
+
+# Now you can access the variables using os.getenv.
+MLFLOW_TRACKING_URI = os.getenv('MLFLOW_TRACKING_URI')
+MLFLOW_TRACKING_USERNAME = os.getenv('MLFLOW_TRACKING_USERNAME')
+MLFLOW_TRACKING_PASSWORD = os.getenv('MLFLOW_TRACKING_PASSWORD')
 
 class ConfigurationManager:
     def __init__(
@@ -83,3 +92,23 @@ class ConfigurationManager:
         )
 
         return model_training_config
+    
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_training
+
+        model_evaluation_config = ModelEvaluationConfig(
+            path_model=Path(config.model_path),
+            preprocessed_spilitted_data_path=Path(config.preprocessed_spilitted_data_path),
+            mlflow_uri=MLFLOW_TRACKING_URI,
+            model_params=dict(
+                batch_size=self.params.BATCH_SIZE,
+                epochs=self.params.EPOCHS,
+                max_words=self.params.MAX_WORDS,
+                validation_split=self.params.VALIDATION_SPLIT,
+                learning_rate=self.params.LEARNING_RATE,
+                beta_1=self.params.BETA_1,
+                beta_2=self.params.BETA_2
+            ),
+        )
+        return model_evaluation_config

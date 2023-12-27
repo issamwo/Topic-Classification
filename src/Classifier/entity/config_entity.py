@@ -44,3 +44,11 @@ class ModelTrainingConfig:
     learning_rate: float
     beta_1: float
     beta_2: float
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    path_model: Path
+    preprocessed_spilitted_data_path: Path
+    model_params: dict
+    mlflow_uri: int
