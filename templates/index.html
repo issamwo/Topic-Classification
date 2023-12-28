@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Bank Tickets Classifier</h1>
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/" method="post">
+                            <div class="form-group">
+                                <label for="text">Text:</label>
+                                <input type="text" id="text" name="text" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </form>
+                        {% if prediction %}
+                        <div class="alert alert-info mt-3" role="alert">
+                            Prediction: {{ prediction }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

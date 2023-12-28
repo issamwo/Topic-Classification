@@ -168,6 +168,6 @@ cython_debug/
 
 artifacts/*
 
-# dvc locks
-dvc.lock
-.dvc
+# # dvc locks
+# dvc.lock
+# .dvc

@@ -107,7 +107,7 @@ class DataPreprocessing:
 
         # Save trained Tokenizer 
         with open(os.path.join(self.config.preprocessed_spilitted_data_path,'tokenizer.pickle'), 'wb') as handle:
-            pickle.dump(Tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         # Convert the text data into sequences of integers
         X_train_sequences = tokenizer.texts_to_sequences(X_train)

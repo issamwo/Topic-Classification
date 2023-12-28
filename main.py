@@ -1,31 +1,18 @@
-from Classifier import logger
-from Classifier.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-from Classifier.pipeline.stage_02_data_cleaning import DataCleaningTrainingPipeline
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from src.Classifier.pipeline.prediction import PredictionPipeline
 
+app = FastAPI()
 
+templates = Jinja2Templates(directory="templates")
 
-STAGE_NAME = "Data Ingestion Stage"
+@app.get("/", response_class=HTMLResponse)
+def read_root(request: Request, prediction: str = None):
+    return templates.TemplateResponse("index.html", {"request": request, "prediction": prediction})
 
-if __name__ == '__main__':
-    try:
-        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        obj = DataIngestionTrainingPipeline()
-        obj.main()
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-    except Exception as e:
-        logger.exception(e)
-        raise e
-
-
-
-STAGE_NAME = "Data Cleaning Stage"
-
-if __name__ == '__main__':
-    try:
-        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        obj = DataCleaningTrainingPipeline()
-        obj.main()
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-    except Exception as e:
-        logger.exception(e)
-        raise e
+@app.post("/", response_class=HTMLResponse)
+def predict(request: Request, text: str = Form(...)):
+    prediction_pipeline = PredictionPipeline()
+    prediction = prediction_pipeline.predict(text)
+    return templates.TemplateResponse("index.html", {"request": request, "prediction": prediction})

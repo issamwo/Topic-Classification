@@ -1,0 +1,154 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/Classifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: cd57e406cfe85bc726d70b8c256ca7db
+      size: 781
+    - path: src/Classifier/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 1ef5b6a32dd66b9eb8b5f13c42578b52
+      size: 911
+    outs:
+    - path: artifacts/data_ingestion/data.json
+      hash: md5
+      md5: 29552c5d2589ede7d8273ef8efadcfcc
+      size: 109263060
+    - path: artifacts/data_ingestion/data.zip
+      hash: md5
+      md5: a85968a0096c1733aeeb067c9d2141a4
+      size: 22173633
+  data_cleaning:
+    cmd: python src/Classifier/pipeline/stage_02_data_cleaning.py
+    deps:
+    - path: artifacts/data_ingestion/data.json
+      hash: md5
+      md5: 29552c5d2589ede7d8273ef8efadcfcc
+      size: 109263060
+    - path: config/config.yaml
+      hash: md5
+      md5: cd57e406cfe85bc726d70b8c256ca7db
+      size: 781
+    - path: src/Classifier/pipeline/stage_02_data_cleaning.py
+      hash: md5
+      md5: ecac9ce857857c02d968beec1db4ca0e
+      size: 907
+    outs:
+    - path: artifacts/data_cleaning/cleaned_data.json
+      hash: md5
+      md5: f939a22af01777e4961408e39ab1e2ed
+      size: 28974963
+  data_preprocessing:
+    cmd: python src/Classifier/pipeline/stage_03_data_preprocessing.py
+    deps:
+    - path: artifacts/data_cleaning/cleaned_data.json
+      hash: md5
+      md5: f939a22af01777e4961408e39ab1e2ed
+      size: 28974963
+    - path: config/config.yaml
+      hash: md5
+      md5: cd57e406cfe85bc726d70b8c256ca7db
+      size: 781
+    - path: src/Classifier/pipeline/stage_03_data_preprocessing.py
+      hash: md5
+      md5: 168bcfe96629838c6373539e3f936b80
+      size: 981
+    params:
+      params.yaml:
+        MAX_WORDS: 1000
+        TEST_SIZE: 0.25
+    outs:
+    - path: artifacts/data_preprocessing/X_test_preprocessed.pickle
+      hash: md5
+      md5: 400a278dacfe62031bbe5fd3c383afa2
+      size: 42144163
+    - path: artifacts/data_preprocessing/X_train_preprocessed.pickle
+      hash: md5
+      md5: 192e92917e84e464f499c56dacfca71c
+      size: 126432163
+    - path: artifacts/data_preprocessing/metadata_info_test.json
+      hash: md5
+      md5: aaece35b91ccd4e8bce8019375da50a5
+      size: 207
+    - path: artifacts/data_preprocessing/metadata_info_train.json
+      hash: md5
+      md5: 4f31bbfce2b63d3dfd7f620385acad24
+      size: 206
+    - path: artifacts/data_preprocessing/tokenizer.pickle
+      hash: md5
+      md5: 4dfeddb4633764012ef121f146ac8573
+      size: 53
+    - path: artifacts/data_preprocessing/y_test_preprocessed.pickle
+      hash: md5
+      md5: d22207e88423f276c78ee42075deff09
+      size: 105522
+    - path: artifacts/data_preprocessing/y_train_preprocessed.pickle
+      hash: md5
+      md5: 8c295081c7e5a13a299e682567b45d5f
+      size: 316242
+  model_training:
+    cmd: python src/Classifier/pipeline/stage_04_model_training.py
+    deps:
+    - path: artifacts/data_preprocessing/X_train_preprocessed.pickle
+      hash: md5
+      md5: 192e92917e84e464f499c56dacfca71c
+      size: 126432163
+    - path: artifacts/data_preprocessing/y_train_preprocessed.pickle
+      hash: md5
+      md5: 8c295081c7e5a13a299e682567b45d5f
+      size: 316242
+    - path: config/config.yaml
+      hash: md5
+      md5: cd57e406cfe85bc726d70b8c256ca7db
+      size: 781
+    - path: src/Classifier/pipeline/stage_04_model_training.py
+      hash: md5
+      md5: b92c7bcbfefdca348f13e8006bae97df
+      size: 886
+    params:
+      params.yaml:
+        BATCH_SIZE: 32
+        BETA_1: 0.9
+        BETA_2: 0.999
+        EPOCHS: 25
+        LEARNING_RATE: 0.01
+        MAX_WORDS: 1000
+        VALIDATION_SPLIT: 0.1
+    outs:
+    - path: artifacts/model_training/model.h5
+      hash: md5
+      md5: 2c1a18965ce1ba627efb085a924c555a
+      size: 8178344
+  model_evaluation:
+    cmd: python src/Classifier/pipeline/stage_05_model_evaluation.py
+    deps:
+    - path: artifacts/data_preprocessing/X_test_preprocessed.pickle
+      hash: md5
+      md5: 400a278dacfe62031bbe5fd3c383afa2
+      size: 42144163
+    - path: artifacts/data_preprocessing/y_test_preprocessed.pickle
+      hash: md5
+      md5: d22207e88423f276c78ee42075deff09
+      size: 105522
+    - path: artifacts/model_training/model.h5
+      hash: md5
+      md5: 2c1a18965ce1ba627efb085a924c555a
+      size: 8178344
+    - path: config/config.yaml
+      hash: md5
+      md5: cd57e406cfe85bc726d70b8c256ca7db
+      size: 781
+    - path: src/Classifier/pipeline/stage_05_model_evaluation.py
+      hash: md5
+      md5: d07b1d0ff794b78d1eb63ca277d6432a
+      size: 957
+    params:
+      params.yaml:
+        BATCH_SIZE: 32
+    outs:
+    - path: artifacts/model_evaluation/evaluation.json
+      hash: md5
+      md5: c3041b6b3f236f8771c330b932bc3569
+      size: 61
