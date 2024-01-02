@@ -171,3 +171,6 @@ artifacts/*
 # # dvc locks
 # dvc.lock
 # .dvc
+
+# cloud key
+sonic-name-403220-e74704f4f952.json

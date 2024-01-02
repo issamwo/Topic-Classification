@@ -9,7 +9,7 @@ from Classifier.entity.config_entity import DataIngestionConfig
 from google.oauth2 import service_account
 
 # Path to the service account file
-service_account_file = "C:/Users/frup00090410/Downloads/sonic-name-403220-e74704f4f952.json"
+service_account_file = "sonic-name-403220-e74704f4f952.json"
 
 # Create a Credentials object from the service account file
 credentials = service_account.Credentials.from_service_account_file(
