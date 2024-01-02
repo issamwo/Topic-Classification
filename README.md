@@ -1,6 +1,8 @@
 [ in progress ]
+
 Tools: Python, Tensorflow, MlFlow, Dvc, Dagshub, Airflow, Pytest, FastApi, Docker, Docker Compose, VMs
-# Ticket classification
+# Tickets classification: 
+  Multilayer perceptron for tickets/mails classification for banking entities
 
 - The goal of this project is to apply Mlops Best Practices for end to end machine learning project
 
@@ -10,6 +12,7 @@ Tools: Python, Tensorflow, MlFlow, Dvc, Dagshub, Airflow, Pytest, FastApi, Docke
   * Data Preprocessing:
   * Model Training:
   * Model Evaluation:
-  * Prediction (inference)
+  * Prediction (inference):
+  * Monitoring
  
 ![Flowcharts (1)](https://github.com/issamwo/Mlops_project/assets/120108637/f1b6b2a2-ac7a-4193-baf7-704b74df6803)
